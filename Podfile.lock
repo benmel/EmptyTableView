@@ -4,7 +4,13 @@ PODS:
 DEPENDENCIES:
   - PureLayout (~> 3.0.1)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - PureLayout
+
 SPEC CHECKSUMS:
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
 
-COCOAPODS: 0.38.2
+PODFILE CHECKSUM: baebaecd3e01d87a41a0491b87085f1ee5492f1b
+
+COCOAPODS: 1.6.1
