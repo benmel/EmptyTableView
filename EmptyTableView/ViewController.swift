@@ -13,7 +13,7 @@ class ViewController: UIViewController {
 
     private var tableView: UITableView!
     
-    private let image = UIImage(named: "star-large")!.imageWithRenderingMode(.AlwaysTemplate)
+	private let image = UIImage(named: "star-large")!.withRenderingMode(.alwaysTemplate)
     private let topMessage = "Favorites"
     private let bottomMessage = "You don't have any favorites yet. All your favorites will show up here."
     
@@ -33,9 +33,9 @@ class ViewController: UIViewController {
     // MARK: - Initialization
     
     func setupTableView() {
-        tableView = UITableView.newAutoLayoutView()
+		tableView = UITableView.newAutoLayout()
         tableView.dataSource = self
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+		tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         view.addSubview(tableView)
         view.setNeedsLayout()
         view.layoutIfNeeded()
@@ -50,10 +50,10 @@ class ViewController: UIViewController {
     
     override func updateViewConstraints() {
         if !didSetupConstraints {
-            tableView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
-            tableView.autoPinToBottomLayoutGuideOfViewController(self, withInset: 0)
-            tableView.autoPinEdgeToSuperviewEdge(.Leading)
-            tableView.autoPinEdgeToSuperviewEdge(.Trailing)
+			tableView.autoPin(toTopLayoutGuideOf: self, withInset: 0)
+			tableView.autoPin(toBottomLayoutGuideOf: self, withInset: 0)
+			tableView.autoPinEdge(toSuperviewEdge: .leading)
+			tableView.autoPinEdge(toSuperviewEdge: .trailing)
             
             didSetupConstraints = true
         }
@@ -63,21 +63,21 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if rows.count == 0 {
-            tableView.separatorStyle = .None
-            tableView.backgroundView?.hidden = false
+			tableView.separatorStyle = .none
+			tableView.backgroundView?.isHidden = false
         } else {
-            tableView.separatorStyle = .SingleLine
-            tableView.backgroundView?.hidden = true
+			tableView.separatorStyle = .singleLine
+			tableView.backgroundView?.isHidden = true
         }
         
         return rows.count
     }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
-        cell.textLabel?.text = rows[indexPath.row]
-        return cell
-    }
+
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath as IndexPath)
+		cell.textLabel?.text = rows[indexPath.row]
+		return cell
+	}
 }

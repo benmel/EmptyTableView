@@ -17,10 +17,10 @@ class EmptyBackgroundView: UIView {
     private var topLabel: UILabel!
     private var bottomLabel: UILabel!
     
-    private let topColor = UIColor.darkGrayColor()
-    private let topFont = UIFont.boldSystemFontOfSize(22)
-    private let bottomColor = UIColor.grayColor()
-    private let bottomFont = UIFont.systemFontOfSize(18)
+	private let topColor = UIColor.darkGray
+	private let topFont = UIFont.boldSystemFont(ofSize: 22)
+	private let bottomColor = UIColor.gray
+	private let bottomFont = UIFont.systemFont(ofSize: 18)
     
     private let spacing: CGFloat = 10
     private let imageViewHeight: CGFloat = 100
@@ -39,18 +39,18 @@ class EmptyBackgroundView: UIView {
     }
     
     init(image: UIImage, top: String, bottom: String) {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         setupViews()
-        setupImageView(image)
-        setupLabels(top, bottom: bottom)
+		setupImageView(image: image)
+		setupLabels(top: top, bottom: bottom)
     }
     
     func setupViews() {
-        topSpace = UIView.newAutoLayoutView()
-        bottomSpace = UIView.newAutoLayoutView()
-        imageView = UIImageView.newAutoLayoutView()
-        topLabel = UILabel.newAutoLayoutView()
-        bottomLabel = UILabel.newAutoLayoutView()
+		topSpace = UIView.newAutoLayout()
+		bottomSpace = UIView.newAutoLayout()
+		imageView = UIImageView.newAutoLayout()
+		topLabel = UILabel.newAutoLayout()
+		bottomLabel = UILabel.newAutoLayout()
         
         addSubview(topSpace)
         addSubview(bottomSpace)
@@ -73,29 +73,29 @@ class EmptyBackgroundView: UIView {
         bottomLabel.textColor = bottomColor
         bottomLabel.font = bottomFont
         bottomLabel.numberOfLines = 0
-        bottomLabel.textAlignment = .Center
+		bottomLabel.textAlignment = .center
     }
     
     override func updateConstraints() {
         if !didSetupConstraints {
-            topSpace.autoAlignAxisToSuperviewAxis(.Vertical)
-            topSpace.autoPinEdgeToSuperviewEdge(.Top)
-            bottomSpace.autoAlignAxisToSuperviewAxis(.Vertical)
-            bottomSpace.autoPinEdgeToSuperviewEdge(.Bottom)
-            topSpace.autoSetDimension(.Height, toSize: spacing, relation: .GreaterThanOrEqual)
-            topSpace.autoMatchDimension(.Height, toDimension: .Height, ofView: bottomSpace)
+			topSpace.autoAlignAxis(toSuperviewAxis: .vertical)
+			topSpace.autoPinEdge(toSuperviewEdge: .top)
+			bottomSpace.autoAlignAxis(toSuperviewAxis: .vertical)
+			bottomSpace.autoPinEdge(toSuperviewEdge: .bottom)
+			topSpace.autoSetDimension(.height, toSize: spacing, relation: .greaterThanOrEqual)
+			topSpace.autoMatch(.height, to: .height, of: bottomSpace)
             
-            imageView.autoPinEdge(.Top, toEdge: .Bottom, ofView: topSpace)
-            imageView.autoAlignAxisToSuperviewAxis(.Vertical)
-            imageView.autoSetDimension(.Height, toSize: imageViewHeight, relation: .LessThanOrEqual)
+			imageView.autoPinEdge(.top, to: .bottom, of: topSpace)
+			imageView.autoAlignAxis(toSuperviewAxis: .vertical)
+			imageView.autoSetDimension(.height, toSize: imageViewHeight, relation: .lessThanOrEqual)
             
-            topLabel.autoAlignAxisToSuperviewAxis(.Vertical)
-            topLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: imageView, withOffset: spacing)
+			topLabel.autoAlignAxis(toSuperviewAxis: .vertical)
+			topLabel.autoPinEdge(.top, to: .bottom, of: imageView, withOffset: spacing)
             
-            bottomLabel.autoAlignAxisToSuperviewAxis(.Vertical)
-            bottomLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: topLabel, withOffset: spacing)
-            bottomLabel.autoPinEdge(.Bottom, toEdge: .Top, ofView: bottomSpace)
-            bottomLabel.autoSetDimension(.Width, toSize: bottomLabelWidth)
+			bottomLabel.autoAlignAxis(toSuperviewAxis: .vertical)
+			bottomLabel.autoPinEdge(.top, to: .bottom, of: topLabel, withOffset: spacing)
+			bottomLabel.autoPinEdge(.bottom, to: .top, of: bottomSpace)
+			bottomLabel.autoSetDimension(.width, toSize: bottomLabelWidth)
             
             didSetupConstraints = true
         }
